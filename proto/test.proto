@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+//package declaration
+package gprcexample;
+//options for code generation
+option java_multiple_files = true;
+option java_package = "it.pietrot.grpcdemo.generated";
+option java_outer_classname = "GrpcIntegration";
+
+
+enum Enumeration {
+  ENUM_1 = 0;
+  ENUM_2 = 1;
+}
+message TestMessage {
+  repeated string detail = 1;
+  bool flag = 2;
+  Enumeration enumeration = 3;
+}
+
+message TestResponse{
+  bool flag = 1;
+  string detail = 2;
+}
+
+message StreamInput{
+  string request = 1;
+}
+
+message StreamOutput{
+  string response = 1;
+}
+
+service TestRpc{
+  rpc Ping(TestMessage) returns (TestResponse) {}
+  rpc Stream(stream StreamInput) returns (stream StreamOutput){}
+}
